@@ -1,0 +1,8 @@
+{% extends "adminportal/base.html" %}
+{%block content%}
+<form class="form" role="form" method=""  >
+    {% csrf_token %}
+    {{ form.media }}
+</form>
+
+{%endblock%}

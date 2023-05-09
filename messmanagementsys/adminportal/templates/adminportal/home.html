@@ -1,0 +1,65 @@
+
+{% extends "adminportal/base.html" %}
+{%block content%}
+{% if user.is_authenticated%}
+  <div class="col" id="add-std">
+    <form class="row g-4" method="POST" action="#">
+        {%csrf_token%}
+      <!-- <div class="col-12 text-center">Add Student Details</div> -->
+        <h2>Edit Student</h2>
+      <div class="col-md-5">
+        <label class="form-label" for="name">Name</label>
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa fa-user icon"></i></div>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Full Name"  value="{{edit_std.name}}" required/>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <label class="form-label" for="email">Email</label>
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-envelope"></i></div>
+          <input type="email" class="form-control" id="email" name="email" placeholder="email id" value="{{edit_std.email}}" required/>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <label class="form-label" for="phone_num"">Phone No.</label>
+        <div class="input-group">
+          <div class="input-group-text"> <i class="fa-sharp fa-solid fa-phone"></i></div>
+          <input type="tel"  class="form-control" id="phone_num" name="phone_num" placeholder="10 Digit number" required pattern="^\+?1?\d{9,10}$" value="{{edit_std.phone_num}}" required/>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <label class="form-label" for="hostel">Hostel</label>
+        <select id="hostel" name="hostel" class="form-select" required>
+          <option selected>&#x29E9; {{edit_std.hostel}}</option>
+          <option value="BJRC" >BJRC</option>
+          <option value="APJ" >APJ</option>
+          <option value="BLOCK A" >BLOCK A</option>
+          <option value="BLOCK B" >BLOCK B</option>
+          <option value="BLOCK C" >BLOCK C</option>
+          <option value="NURSING HOSTEL" >NURSING</option>
+          <option value="FATIMA ZEHRA" >FATIMA ZEHRA</option>
+        </select>
+      </div>
+      <div class="col-md-10">
+        <label class="form-label" for="room_no">Room No.</label>
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-people-roof"></i></div>
+          <input type="text" class="form-control" id="room_no" name="room_no" placeholder="room no" value="{{edit_std.room_no}}" required/>
+        </div>
+      </div>
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary" id="add-btn">Update</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-lg-3">
+    What is Lorem Ipsum?
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+  </div>
+{%endif%}
+
+{%endblock%}
