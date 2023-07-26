@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.models import User
-from .models import Student, MessFee, Person , Company
+from .models import Student, MessFee, Company,MessMenu
 from django.contrib import messages
 
 from .forms import addstudentdetails, Login, PayementForm, MenuForm,EditStudent
@@ -76,31 +76,31 @@ def dashboard(request):
         nursing = len(Student.objects.filter(hostel='NURSING HOSTEL'))
         fatima_zehra = len(Student.objects.filter(hostel='FATIMA ZEHRA'))
         total_payments=len(MessFee.objects.filter(fee_month=thismonth))
-        BJRC_payments=len(MessFee.objects.filter(fee_month=thismonth).values() and MessFee.objects.filter(std_id_id__in=Student.objects.filter(hostel='BJRC')))
-        APJ_payments=len(MessFee.objects.filter(fee_month=thismonth).values() and MessFee.objects.filter(std_id_id__in=Student.objects.filter(hostel='APJ')))
-        BLOCKA_payments=len(MessFee.objects.filter(fee_month=thismonth).values() and MessFee.objects.filter(std_id_id__in=Student.objects.filter(hostel='BLOCK A')))
-        BLOCKB_payments=len(MessFee.objects.filter(fee_month=thismonth).values() and MessFee.objects.filter(std_id_id__in=Student.objects.filter(hostel='BLOCK B')))
-        BLOCKC_payments=len(MessFee.objects.filter(fee_month=thismonth).values() and MessFee.objects.filter(std_id_id__in=Student.objects.filter(hostel='BLOCK C')))
-        NURSING_payments=len(MessFee.objects.filter(fee_month=thismonth).values() and MessFee.objects.filter(std_id_id__in=Student.objects.filter(hostel='NURSING HOSTEL')))
-        fatimazehra_payments=len(MessFee.objects.filter(fee_month=thismonth).values() and MessFee.objects.filter(std_id_id__in=Student.objects.filter(hostel='FATIMA ZEHRA')))
+        BJRC_payments=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='BJRC'))).values())
+        APJ_payments=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='APJ'))).values())
+        BLOCKA_payments=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='BLOCK A'))).values() )
+        BLOCKB_payments=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='BLOCK B'))))
+        BLOCKC_payments=len(MessFee.objects.filter(Q(fee_month=thismonth) ,Q(std_id_id__in=Student.objects.filter(hostel='BLOCK C'))))
+        NURSING_payments=len(MessFee.objects.filter(Q(fee_month=thismonth),Q(std_id_id__in=Student.objects.filter(hostel='NURSING HOSTEL'))))
+        fatimazehra_payments=len(MessFee.objects.filter(Q(fee_month=thismonth),Q(std_id_id__in=Student.objects.filter(hostel='FATIMA ZEHRA'))))
         #   ******* DUES THIS MONTH*******
-        dues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) and Q(bal_amount__gt=0)).values())
-        BJRCdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) and Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='BJRC'))).values())
-        APJdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) and Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='APJ'))).values())
-        BLOCKAdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) and Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='BLOCK A'))).values())
-        BLOCKBdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) and Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='BLOCK B'))).values())
-        BLOCKCdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) and Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='BLOCK C'))).values())
-        Nursingdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) and Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='NURSING HOSTEL'))).values())
-        Fatimazehradues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) and Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='FATIMA ZEHRA'))).values())
+        dues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(bal_amount__gt=0)).values())
+        BJRCdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(bal_amount__gt=0) , Q(std_id_id__in=Student.objects.filter(hostel='BJRC').values_list('id',flat=True))))
+        APJdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(bal_amount__gt=0) , Q(std_id_id__in=Student.objects.filter(hostel='APJ').values_list('id',flat=True))))
+        BLOCKAdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(bal_amount__gt=0) , Q(std_id_id__in=Student.objects.filter(hostel='BLOCK A').values_list('id',flat=True))))
+        BLOCKBdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(bal_amount__gt=0) , Q(std_id_id__in=Student.objects.filter(hostel='BLOCK B').values_list('id',flat=True))))
+        BLOCKCdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(bal_amount__gt=0) , Q(std_id_id__in=Student.objects.filter(hostel='BLOCK C').values_list('id',flat=True))))
+        Nursingdues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(bal_amount__gt=0) , Q(std_id_id__in=Student.objects.filter(hostel='NURSING HOSTEL').values_list('id',flat=True))))
+        Fatimazehradues_thismonth=len(MessFee.objects.filter(Q(fee_month=thismonth) , Q(bal_amount__gt=0) , Q(std_id_id__in=Student.objects.filter(hostel='FATIMA ZEHRA').values_list('id',flat=True))))
         #    *******PREVIOUS DUES*********
-        dues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0)).exclude(fee_month=thismonth))
-        BJRCdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='BJRC'))).exclude(fee_month=thismonth))
-        APJdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='APJ'))).exclude(fee_month=thismonth))
-        BLOCKAdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='BLOCK A'))).exclude(fee_month=thismonth))
-        BLOCKBdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='BLOCK B'))).exclude(fee_month=thismonth))
-        BLOCKCdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='BLOCK C'))).exclude(fee_month=thismonth))
-        Nursingdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='NURSING HOSTEL'))).exclude(fee_month=thismonth))
-        Fatimazehradues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) and Q(std_id_id__in=Student.objects.filter(hostel='FATIMA ZEHRA'))).exclude(fee_month=thismonth))
+        dues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) , ~Q(fee_month=thismonth)))
+        BJRCdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) , ~Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='BJRC').values_list('id',flat=True))))
+        APJdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) , ~Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='APJ').values_list('id',flat=True))))
+        BLOCKAdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) , ~Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='BLOCK A').values_list('id',flat=True))))
+        BLOCKBdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) , ~Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='BLOCK B').values_list('id',flat=True))))
+        BLOCKCdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) , ~Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='BLOCK C').values_list('id',flat=True))))
+        Nursingdues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) , ~Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='NURSING HOSTEL').values_list('id',flat=True))))
+        Fatimazehradues_othermonths=len(MessFee.objects.filter(Q(bal_amount__gt=0) , ~Q(fee_month=thismonth) , Q(std_id_id__in=Student.objects.filter(hostel='FATIMA ZEHRA').values_list('id',flat=True))))
 
 
         context = {
@@ -131,7 +131,7 @@ def dashboard(request):
             'Fatimazehradues_thismonth':Fatimazehradues_thismonth,
             'dues_othermonths':dues_othermonths,
             'BJRCdues_othermonths':BJRCdues_othermonths,
-            'APJdues_othermonths':BJRCdues_othermonths,
+            'APJdues_othermonths':APJdues_othermonths,
             'BLOCKAdues_othermonths':BLOCKAdues_othermonths,
             'BLOCKBdues_othermonths':BLOCKBdues_othermonths,
             'BLOCKCdues_othermonths':BLOCKCdues_othermonths,
@@ -316,11 +316,41 @@ def PayDirect(request, pk):
 @login_required
 def menuview(request):
     if request.user.is_staff:
-        if request.method == 'GET':
-            form=MenuForm()
+        if request.method == 'POST':
+            form=MenuForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'Menu inserted successfully!')
+                return redirect('menu')
+
             return render(request, 'adminportal/messmenu.html', {'form':form})
         else:
-            redirect('dashboard')
+            form=MenuForm()
+            last_menus=MessMenu.objects.order_by('-id')[:10]
+            if last_menus:
+                return render(request, 'adminportal/messmenu.html', {'form':form,'last_menus':last_menus})
+            else:
+                return render(request, 'adminportal/messmenu.html', {'form':form})
+
+    else:
+        messages.error(request, 'You are not authorized to access!')
+        return redirect("login")
+
+@login_required
+def editmessmenu(request,pk):
+    if request.user.is_staff:
+        edit_menu=get_object_or_404(MessMenu,pk=pk)
+        if request.method== 'POST':
+            form=MenuForm(request.POST or None,request.FILES or None ,instance=edit_menu)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f'Menu updated successfully!')
+                return redirect('editmenu',pk)
+        else:
+            form=MenuForm(instance=edit_menu)
+            last_menus=MessMenu.objects.order_by('-id')[:10]
+            return render(request, 'adminportal/editmenu.html', {'form':form,'last_menus':last_menus})
+
     else:
         messages.error(request, 'You are not authorized to access!')
         return redirect("login")

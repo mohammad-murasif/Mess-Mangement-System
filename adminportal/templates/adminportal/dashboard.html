@@ -1,0 +1,112 @@
+{% extends "adminportal/base.html" %}
+{% block content %}
+{% if user.is_authenticated%}
+<section class="text-center">
+    <div class="row ">
+      <div class="col-lg-3 col-md-6 mt-5 mb-5 mb-md-5 mb-lg-0 position-relative ">
+        <i class="fa-solid fa-users fa-3x text-primary mb-4"></i>
+        <h5 class="text-primary fw-bold mb-2">{{count}}+</h5>
+        <h5 class="fw-normal ">Students</h5>
+        <dd class="col-sm-9  mt-3" >
+          <dl class="row  justify-content-center ">
+            <dt class="col-sm-6">BJRC</dt>
+            <dd class="col-sm-3">{{bjrc_student}}</dd>
+            <dt class="col-sm-6">BLOCK A</dt>
+            <dd class="col-sm-3">{{block_a}}</dd>
+            <dt class="col-sm-6">BLOCK B</dt>
+            <dd class="col-sm-3">{{block_b}}</dd>
+            <dt class="col-sm-6">BLOCK C</dt>
+            <dd class="col-sm-3">{{block_c}}</dd>
+            <dt class="col-sm-6">APJ</dt>
+            <dd class="col-sm-3">{{apj}}</dd>
+            <dt class="col-sm-6">Fatima Zehra</dt>
+            <dd class="col-sm-3">{{fatima_zehra}}</dd>
+            <dt class="col-sm-6">Nursing Hostel</dt>
+            <dd class="col-sm-3">{{nursing}}</dd>
+          </dl>
+        </dd>
+        <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+        <hr class="hr hr-blurry me-0" id="hr-dash">
+      </div>
+      <div class="col-lg-3 col-md-6 mt-5 mb-5 mb-md-5 mb-lg-0 position-relative">
+        <i class="fa-solid fa-cash-register fa-3x text-primary mb-4"></i>
+        <h5 class="text-primary fw-bold mb-3">{{total_payments}}</h5>
+        <h6 class="fw-normal mb-0">Payments This Month</h6>
+        <dd class="col-sm-9  mt-3" >
+            <dl class="row  justify-content-center ">
+              <dt class="col-sm-6">BJRC</dt>
+              <dd class="col-sm-3">{{BJRC_payments}}</dd>
+              <dt class="col-sm-6">BLOCK A</dt>
+              <dd class="col-sm-3">{{BLOCKA_payments}}</dd>
+              <dt class="col-sm-6">BLOCK B</dt>
+              <dd class="col-sm-3">{{BLOCKB_payments}}</dd>
+              <dt class="col-sm-6">BLOCK C</dt>
+              <dd class="col-sm-3">{{BLOCKC_payments}}</dd>
+              <dt class="col-sm-6">APJ</dt>
+              <dd class="col-sm-3">{{APJ_payments}}</dd>
+              <dt class="col-sm-6">Fatima Zehra</dt>
+              <dd class="col-sm-3">{{fatimazehra_payments}}</dd>
+              <dt class="col-sm-6">Nursing Hostel</dt>
+              <dd class="col-sm-3">{{NURSING_payments}}</dd>
+            </dl>
+          </dd>
+        <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+        <hr class="hr hr-blurry me-0" id="hr-dash">
+      </div>
+  
+      <div class="col-lg-3 col-md-6 mt-5 mb-5 mb-md-0 position-relative">
+        <i class="fa-solid fa-cash-register fa-3x text-primary mb-4"></i>
+        <h5 class="text-primary fw-bold mb-3">{{dues_thismonth}}</h5>
+        <h6 class="fw-normal mb-0">Dues This Month</h6>
+        <dd class="col-sm-9  mt-3" >
+            <dl class="row  justify-content-center ">
+              <dt class="col-sm-6">BJRC</dt>
+              <dd class="col-sm-3">{{BJRCdues_thismonth}}</dd>
+              <dt class="col-sm-6">BLOCK A</dt>
+              <dd class="col-sm-3">{{BLOCKAdues_thismonth}}</dd>
+              <dt class="col-sm-6">BLOCK B</dt>
+              <dd class="col-sm-3">{{BLOCKBdues_thismonth}}</dd>
+              <dt class="col-sm-6">BLOCK C</dt>
+              <dd class="col-sm-3">{{BLOCKCdues_thismonth}}</dd>
+              <dt class="col-sm-6">APJ</dt>
+              <dd class="col-sm-3">{{APJdues_thismonth}}</dd>
+              <dt class="col-sm-6">Fatima Zehra</dt>
+              <dd class="col-sm-3">{{Fatimazehradues_thismonth}}</dd>
+              <dt class="col-sm-6">Nursing Hostel</dt>
+              <dd class="col-sm-3">{{Nursingdues_thismonth}}</dd>
+            </dl>
+          </dd>
+        <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+        <hr class="hr hr-blurry me-0" id="hr-dash">
+      </div>
+  
+      <div class="col-lg-3 col-md-6 mt-5 mb-5 mb-md-0 position-relative">
+        <i class="fa-sharp fa-solid fa-calendar-days fa-3x text-primary mb-4"></i>
+        <h5 class="text-primary fw-bold mb-3">{{dues_othermonths}}</h5>
+        <h6 class="fw-normal mb-0">Previous Dues</h6>
+        <dd class="col-sm-9  mt-3" >
+            <dl class="row  justify-content-center ">
+              <dt class="col-sm-6">BJRC</dt>
+              <dd class="col-sm-3">{{BJRCdues_othermonths}}</dd>
+              <dt class="col-sm-6">BLOCK A</dt>
+              <dd class="col-sm-3">{{BLOCKAdues_othermonths}}</dd>
+              <dt class="col-sm-6">BLOCK B</dt>
+              <dd class="col-sm-3">{{BLOCKBdues_othermonths}}</dd>
+              <dt class="col-sm-6">BLOCK C</dt>
+              <dd class="col-sm-3">{{BLOCKCdues_othermonths}}</dd>
+              <dt class="col-sm-6">APJ</dt>
+              <dd class="col-sm-3">{{APJdues_othermonths}}</dd>
+              <dt class="col-sm-6">Fatima Zehra</dt>
+              <dd class="col-sm-3">{{Fatimazehradues_othermonths}}</dd>
+              <dt class="col-sm-6">Nursing Hostel</dt>
+              <dd class="col-sm-3">{{Nursingdues_othermonths}}</dd>
+            </dl>
+          </dd>
+          <hr class="hr hr-blurry me-0" id="hr-dash">
+      </div>
+
+    </div>
+  </section>
+
+{%endif%}
+{%endblock%}

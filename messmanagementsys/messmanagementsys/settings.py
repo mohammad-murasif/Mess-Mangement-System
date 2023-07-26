@@ -27,15 +27,16 @@ SECRET_KEY = 'django-insecure-@4v#$=n6$4+=52ottr+%fau_9o906strafw*tnhs3#pvhi!ge1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
+    # 'users.apps.UsersConfig',
     'messmanagementsys',
     'adminportal',
+    'userportal',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
+    'ckeditor_uploader',
     "bootstrap5",
     'crispy_forms',
     "crispy_bootstrap5",
@@ -166,6 +168,7 @@ EMAIL_HOST_USER='web.projects.22092001@gmail.com'
 EMAIL_HOST_PASSWORD='kaofqcdkhdpnnksh'
 
 
+# CKEditor Settings
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' 

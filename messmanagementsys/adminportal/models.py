@@ -3,6 +3,8 @@ from django.core.validators import RegexValidator
 from ckeditor.fields import RichTextField
 from PIL import Image
 from django.contrib.auth.models import  User
+from ckeditor_uploader.fields import RichTextUploadingField 
+
 
 
 
@@ -45,16 +47,30 @@ class MessFee(models.Model):
     def __str__ (self):
 
         return "Reciept ID: %s , Student ID.: %s" %(self.pk,self.std_id )
+class leaveRequests(models.Model):
+    leaveId=models.ForeignKey(Student,verbose_name="Leave ID",on_delete=models.PROTECT)
+    startDate=models.CharField(blank=False, null=False, max_length=255,verbose_name="Start Date")
+    EndDate=models.CharField(blank=False,null=False,max_length=255,verbose_name="End Date")
+    note=models.TextField(verbose_name="Note to staff", max_length=500 , null=True)
+    App_date = models.DateTimeField(verbose_name="Date of Application",auto_now=True)
+
+    def __str__(self):
+        return "Leave ID"%(self.leaveId)
+class NOCapplications(models.Model):
+    ApplicationId=models.AutoField(primary_key=True ,verbose_name="Application ID")
+    std_id=models.ForeignKey(Student,verbose_name="Student ID",on_delete=models.PROTECT)
+    Programme=models.CharField(verbose_name='Programme',max_length=255, null=False,blank=False)
+    status=models.BooleanField(verbose_name="Approve",max_length=255,null=False,blank=False,default=False)
+    
+    def __str__(self):
+        return "Reciept ID: %s , Student ID.: %s" %(self.pk,self.std_id )
+
+
 
 
 class MessMenu(models.Model):
-    monday=models.TextField()
-    tuesday=RichTextField()
-    wednesday=RichTextField()
-    thursday=RichTextField()
-    friday=RichTextField()
-    saturday=RichTextField()
-    sunday=RichTextField()
+    session=models.CharField(max_length=255)
+    Menu=RichTextUploadingField()
 
 
 
@@ -71,9 +87,6 @@ class Updates(models.Model):
     def __str__(self):
         return "ID: %s Heading:%s"%(self.id,self.heading)
 
-class Person(models.Model):
-    name = models.CharField(max_length=100)
-    marks = models.CharField(max_length=100)
 
 
 class Company(models.Model):

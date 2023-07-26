@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&display=swap');
+.dash-card{
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 4px 7px;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    height: 350px;
+}
+
+.card-body i{
+    border:solid #19A7CE 2px ;
+    color:#19A7CE;
+    border-radius: 50%;
+    padding: 2rem;
+
+}
+.card-body span{
+    font-family: 'Staatliches', cursive;
+    font-weight: bold;
+    display: block;
+    font-size: 1.8rem;
+}
+.dash-card .card-body span::after{
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #19A7CE;
+    margin: auto;
+}
+.dash-card  h4{
+    position: relative;
+    bottom:0;
+    /* margin: 10px 10px 0px 10px; */
+    padding: 8px 0;
+    font-family: 'Martian Mono', monospace;
+
+}

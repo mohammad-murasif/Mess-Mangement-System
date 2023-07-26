@@ -1,0 +1,79 @@
+{% extends "adminportal/base.html" %}
+{%block content%}
+{% if user.is_authenticated%}
+<div class="col" id="add-std">
+    <form class="row g-4" method="POST" action="#">
+        {%csrf_token%}
+        <h2>Payment Form</h2>
+        <div class="col-md-5">
+            <label class="form-label" for="std_id">Student ID</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fa fa-user icon"></i></div>
+                <input type="text" name="std_id" id="std_id" class="form-control" placeholder="Student ID" required />
+            </div>
+        </div>
+        <div class="col-md-5">
+            <label class="form-label" for="reciept_id">Reciept No.</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fa-solid fa-receipt"></i></div>
+                <input type="number" name="reciept_id" id="reciept_id" class="form-control" placeholder="ID" required />
+            </div>
+        </div>
+        <div class="col-md-5">
+            <label class="form-label" for="paid_amount">Amount Paid</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                <input type="number" class="form-control" id="paid_amount" name="paid_amount" placeholder="Paid"
+                    required pattern="^\+?1?\d{9,10}$">
+
+            </div>
+        </div>
+        <div class="col-md-5">
+            <label class="form-label" for="bal_amount">Amount Due</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                <input type="number" class="form-control" id="bal_amount" name="bal_amount" placeholder="Due" value="0" required
+                    pattern="^\+?1?\d{9,10}$">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <label class="form-label" for="month">Month</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fa-solid fa-calendar-days"></i></div>
+                <input type="month" class="form-control" class="input-text" id="fee_month" name="fee_month"
+                    placeholder="Select Month" data-date-format="YYYY MMMM DD" required>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <label class="form-label" for="end_date">Valid Till</label>
+            <div class="input-group">
+                <div class="input-group-text"><i class="fa-solid fa-calendar-check"></i></div>
+                <input type="date" class="form-control" id="end_date" name="end_date"
+                    placeholder="End Date" onchange="ChangeFormat()" required>
+            </div>
+        </div>
+
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary" id="add-btn">Pay</button>
+        </div>
+    </form>
+</div>
+<div class="col-lg-3">
+    <div class="row recent-actions">
+        <h3>Recent actions
+        </h3>
+
+        <h4>Recent Pays</h4>
+        <ul>
+            {% for i in recent_pays %}
+            <li> <a href="../invoice/{{i.std_id_id}}/{{i.trans_id}}/"><i class="fa-solid fa-pencil fa-1x"></i>{{i.std_id}}</a>
+                <span>Payment</span>
+            </li> 
+            {% endfor %}    
+        </ul>
+    </div>
+
+
+</div>
+{%endif%}
+{%endblock%}

@@ -1,0 +1,120 @@
+{% extends "userportal/base.html" %}
+{%block content%}
+
+{% if user.is_authenticated%}
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col" id="add-std">
+        <form class="row g-4" method="POST" action="" enctype="multipart/form-data">
+          {%csrf_token%}
+          <h5 >Edit Profile</h5>
+          <div class="col-md-10 d-flex  flex-column justify-content-center align-items-center">
+            <img class="rounded-circle account-img" id="preview-selected-image" src="{{ form.profilepic.value.url }}"
+              style="height: 130px;width: 130px;">
+            <label class="form-label" for="{{ form.profilepic.id_for_label }}"></label>
+            <span class="input-group-btn">
+              <span class="btn btn-secondary btn-file" style="border-radius: 28px; padding: 2px;">
+                Choose pic..<input type="file" id="{{ form.profilepic.id_for_label }}" name="profilepic" accept="image/*" onchange="previewImage(event);" />
+              </span>
+            </span>
+      
+          </div>
+          <div class="col-md-5">
+            <label class="form-label" for="{{ form.name.id_for_label }}">Name</label>
+            <div class="input-group">
+              <div class="input-group-text"><i class="fa fa-user icon"></i></div>
+              <input type="text" class="form-control" id="{{ form.name.id_for_label }}" name="name" placeholder="Full Name" value="{{ form.name.value}}"
+                required />
+            </div>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label" for="{{ form.email.id_for_label }}">Email</label>
+            <div class="input-group">
+              <div class="input-group-text"><i class="fa-solid fa-envelope"></i></div>
+              <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="email" placeholder="email id"
+                value="{{ form.email.value }}" required />
+            </div>
+          </div>
+          <div class="col-md-5">
+            <label class="form-label" for="{{ form.phone_num.id_for_label }}">Phone No.</label>
+              <div class=" input-group">
+              <div class="input-group-text"> <i class="fa-sharp fa-solid fa-phone"></i></div>
+              <input type="tel" class="form-control" id="{{ form.phone_num.id_for_label }}" name="phone_num" placeholder="10 Digit number" required
+                pattern="^\+?1?\d{9,10}$" value="{{ form.phone_num.value }}" required />
+          </div>
+      </div>
+      <div class="col-md-5">
+        <label class="form-label" for="{{ form.hostel.id_for_label }}">Hostel Name</label>
+        <select id="hostel" name="hostel" class="form-select" required>
+          <option selected style="font-weight: bold;"> {{ form.hostel.value }}</option>
+          <option value="BJRC">BJRC</option>
+          <option value="APJ">APJ</option>
+          <option value="BLOCK A">BLOCK A</option>
+          <option value="BLOCK B">BLOCK B</option>
+          <option value="BLOCK C">BLOCK C</option>
+          <option value="NURSING HOSTEL">NURSING</option>
+          <option value="FATIMA ZEHRA">FATIMA ZEHRA</option>
+        </select>
+      </div>
+      <div class="col-md-10">
+        <label class="form-label" for="{{ form.room_no.id_for_label }}">Room No.</label>
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-people-roof"></i></div>
+          <input type="text" class="form-control" id="{{ form.room_no.id_for_label }}" name="room_no" placeholder="room no"
+            value="{{ form.room_no.value }}" required />
+        </div>
+      </div>
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary" id="add-btn">Update</button>
+      </div>
+      </form>
+      </div>
+      <!-- 
+      <div class="col-lg-3">
+      
+      </div>
+       -->
+      <script type="application/javascript">
+        /**
+         * Create an arrow function that will be called when an image is selected.
+         */
+        const previewImage = (event) => {
+          /**
+           * Get the selected files.
+           */
+          const imageFiles = event.target.files;
+          /**
+           * Count the number of files selected.
+           */
+          const imageFilesLength = imageFiles.length;
+          /**
+           * If at least one image is selected, then proceed to display the preview.
+           */
+          if (imageFilesLength > 0) {
+            /**
+             * Get the image path.
+             */
+            const imageSrc = URL.createObjectURL(imageFiles[0]);
+            /**
+             * Select the image preview element.
+             */
+            const imagePreviewElement = document.querySelector("#preview-selected-image");
+            /**
+             * Assign the path to the image preview element.
+             */
+            imagePreviewElement.src = imageSrc;
+            /**
+             * Show the element by changing the display value to "block".
+             */
+            imagePreviewElement.style.display = "block";
+          }
+        };
+      </script>
+      
+    </div>
+  </div>
+</section>
+
+{%endif%}
+{%endblock%}

@@ -1,0 +1,109 @@
+{% extends "adminportal/base.html" %}
+{% block content %}
+{% if user.is_authenticated%}
+<div class="table-responsive-sm">
+    <div class="std-list">
+        <h4 class="fw-normal mb-0">Payment List</h4>
+    </div>
+    <form action="">
+        <div class="btn-group col-12">
+            <input id="search-input" type="search" id="q" name="q" class="form-control " aria-label="Search"
+                aria-describedby="search-addon" placeholder="Search by anything" data-mdb-clear-button="true"/>
+            <button id="search-button" type="submit" class="btn btn-primary position-relative ">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+    </form>
+
+    <table class="table table-hover">
+
+        <thead class="table-dark align-middle">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Reciept No.</th>
+                <th scope="col">Fee Month</th>
+                <th scope="col">Paid</th>
+                <th scope="col">Due</th>
+                <th scope="col">valid Till</th>
+                <th scope="col">Payment Date</th>
+                <th scope="col">
+                    action
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in page_obj%}
+            <tr>
+
+                <th scope="row">{{payment.trans_id}}</th>
+                <td>{{payment.std_id}}</td>
+                <td>{{payment.reciept_id}}</td>
+                <td>{{payment.fee_month}}</td>
+                <td>{{payment.paid_amount}}</td>
+                <td>{{payment.bal_amount}}</td>
+                <td>{{payment.end_date}}</td>
+                <td>{{payment.Pay_date}}</td>
+                <td>
+                    <a class="btn btn-light btn-sm mt-1 mb-1"
+                        href="/invoice/{{payment.std_id_id}}/{{payment.trans_id}}">
+                        <i class="fa-solid fa-receipt fa-lg" style="color: #0040ff;"></i>
+                    </a>
+                    <!-- <a class="btn btn-success btn-sm mt-1 mb-1" href="/generateinvoice/{{payment.std_id_id}}/{{payment.trans_id}}"><i
+                        <i class="fa-sharp fa-solid fa-gear"></i></a> -->
+                    <!-- Example single danger button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-light dropdown-toggle btn-sm mt-1 mb-1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-sharp fa-solid fa-gear"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"
+                                    href="/generateinvoice/{{payment.std_id_id}}/{{payment.trans_id}}">Mail reciept</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </td>
+
+            </tr>
+            {%endfor%}
+        </tbody>
+
+    </table>
+</div>
+
+<nav aria-label="Page navigation example">
+    {% if page_obj.has_other_pages %}
+    <div class="pagination" role="group" aria-label="Item pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+        {% endif %}
+
+        {% for page_number in page_obj.paginator.page_range %}
+        {% if page_obj.number == page_number %}
+        <button class="btn btn-outline-primary active">
+            <span>{{ page_number }} <span class="sr-only">(current)</span></span>
+        </button>
+        {% else %}
+        <a href="?page={{ page_number }}" class="btn btn-outline-primary">
+            {{ page_number }}
+        </a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+    <p>No items found.</p>
+</nav>
+
+{% endif %}
+{%endblock%}

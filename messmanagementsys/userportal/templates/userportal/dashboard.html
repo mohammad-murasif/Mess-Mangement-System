@@ -1,0 +1,51 @@
+{% extends "userportal/base.html" %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-3 col-lg-4">
+                <div class="dash-card  ">
+                    <div class="card-body ">
+                        <i class="fas fa-utensils fa-5x "></i>
+                        <span>
+                            {{feeMonths.count}}
+                        </span>
+                        <h4>Months Fed</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-4">
+                <div class="dash-card">
+                    <div class="card-body ">
+                        <i class="fa-solid fa-cash-register fa-5x "></i>
+                        <span>
+                            {{feeMonths.count}}
+                        </span>
+                        <h4>Total Payements</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-4">
+                <div class="dash-card d-block justify-content-center  align-items-center">
+                    <div class="card-body ">
+                        <dd class="col-sm-9  mt-3" >
+                            <dl class="row  justify-content-center ">
+                            {% for due in dueMonths %}
+                              <dt class="col-sm-6" >{{due.fee_month}}</dt>
+                              <dd class="col-sm-3 ">{{due.bal_amount}}</dd>
+                              {%endfor%}
+                            </dl>
+                          </dd>
+                        
+                        <h4>Due Amounts</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock content %}

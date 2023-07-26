@@ -1,0 +1,20 @@
+{% extends "userportal/base.html" %}
+{%block content%}
+<!-- <div class="col" id="add-std">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.Menu|safe}}
+
+
+    </form>
+</div> -->
+
+<section class="text-center">
+    <div class="row ">
+        <h4>{{ form.session}}</h4>
+        <div class="col-lg-12 col-md-4 overflow-auto">
+            {{ form.Menu|safe}}
+        </div>
+    </div>
+</section>
+{%endblock%}

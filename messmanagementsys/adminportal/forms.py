@@ -2,9 +2,11 @@ from django import forms
 from django.contrib.auth.models import User  
 from django.contrib.auth.forms import UserCreationForm  
 from ckeditor.fields import RichTextFormField
-from django.forms.forms import Form  
-from .models import Student , Person,MessFee,MessMenu
+from django.forms import ModelForm  
+from .models import Student ,MessFee,MessMenu
 from django.contrib.auth.forms import UserCreationForm
+
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 # class CustomUserCreationForm(UserCreationForm):  
 #     username = forms.CharField(label='username', min_length=5, max_length=150)  
 #     email = forms.EmailField(label='email')  
@@ -71,15 +73,11 @@ class Login(forms.Form):
     username = forms.CharField(max_length=63)
     password = forms.CharField(max_length=63, widget=forms.PasswordInput)
 
+class MenuForm(ModelForm):
+    
+    Menu = forms.CharField(widget=CKEditorUploadingWidget())
 
 
-class PersonForm(forms.Form):
-    class meta:
-        model = Person
-        fields = '__all__'
-
-
-class MenuForm(forms.Form):
-    class meta:
+    class Meta:
         model = MessMenu
         fields = '__all__'

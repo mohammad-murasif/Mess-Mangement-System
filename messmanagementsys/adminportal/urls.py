@@ -34,6 +34,7 @@ urlpatterns = [
     path('pay/',views.PayView,name='payfee'),
     path('paydirect/<int:pk>/',views.PayDirect,name='payfee'),
     path('menu/',views.menuview,name='menu'),
+    path('editmenu/<int:pk>',views.editmessmenu ,name='editmenu'),
     path('payments/',views.ViewPayments, name='payments'),
     path('invoice',views.invoice,name='invoice'),
     path('invoice/<int:std_id>/<int:trans_id>/',views.invoice,name='invoicedirect'),
