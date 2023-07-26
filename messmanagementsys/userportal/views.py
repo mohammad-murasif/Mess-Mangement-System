@@ -77,16 +77,16 @@ def profile(request):
                     user_std.email=request.POST['email']
                     user_std.save()
                     messages.success(request, f'Details updated for {edit_std.name} Successfully!')
-                    return redirect('u-prfole')
+                    return redirect('u-profile')
                 else:
                     check_existing = Student.objects.filter(phone_num=edit_std.phone_num) or Student.objects.filter(email=request.POST['id_phone_num']).exists() or  User.objects.filter(username=str(request.POST['id_phone_num'])).exists()
                     if check_existing:
                         messages.error(request,f'{edit_std.email} or {edit_std.phone_num} already registered!')
-                        return redirect('uprofile')
+                        return redirect('u-profile')
 
             except Exception as e:
                     messages.error(request,'Oops Something went wrong!')
-                    return redirect('uprofile')
+                    return redirect('u-profile')
                 
     else:
         messages.error(request, 'You are not authorized to access!')
@@ -96,13 +96,14 @@ def profile(request):
 
 
 def payments(request):
-    if request.user.is_active:        
+    if request.user.is_active:
+        Current_std= get_object_or_404(Student,user_id=request.user.id)        
         if 'q' in request.GET:
             q = request.GET['q']
             page_obj = MessFee.objects.filter(Q(std_id_id__in=Student.objects.filter(name__icontains=q)) or Q(reciept_id=q))
             page_num = request.GET.get('page', 1)
             paginator = Paginator(page_obj, 10)  #10 payments per page
-            return render(request, 'userportal/viewpayments.html', {'page_obj': page_obj})
+            return render(request, 'userportal/viewpayments.html', {'page_obj': page_obj,'current_user':Current_std})
         else:
             Current_std= get_object_or_404(Student,user_id=request.user.id)
             payments_all = MessFee.objects.filter(std_id_id=Current_std.id)
@@ -116,7 +117,7 @@ def payments(request):
             except EmptyPage:
                 page_obj = paginator.page(paginator.num_pages)
 
-            return render(request, 'userportal/payments.html', {'page_obj': page_obj})
+            return render(request, 'userportal/payments.html', {'page_obj': page_obj,'current_user':Current_std})
     else:
         messages.error(request, 'You are not authorized to access!')
         return redirect("u-login")
@@ -144,8 +145,9 @@ def feedback(request):
 
 def messmenu(request):
     form=MessMenu.objects.last()
+    Current_std= get_object_or_404(Student,user_id=request.user.id)   
 
-    return render(request,'userportal/messmenu.html',{'form':form})
+    return render(request,'userportal/messmenu.html',{'form':form,'current_user':Current_std})
 
 def applyfornoc(request):
 

@@ -85,7 +85,7 @@ h6 {
   content: "";
   position: absolute;
   display: block;
-  width: 50px;
+  width: 85px;
   height: 3px;
   background: var(--color-primary);
   left: 0;

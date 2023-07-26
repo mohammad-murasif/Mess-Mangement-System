@@ -31,11 +31,8 @@
     background-color: #19A7CE;
     margin: auto;
 }
-.dash-card  h4{
-    position: relative;
-    bottom:0;
-    /* margin: 10px 10px 0px 10px; */
+.dash-card .card-body h4{
+    margin: 10px;
     padding: 8px 0;
     font-family: 'Martian Mono', monospace;
-
 }
